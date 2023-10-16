@@ -122,77 +122,86 @@ RegisterNumber: 212222100050
 
 # SR flip flop:
 ```
-module exp_5a(s,r,clk,q,qbar);
-input s,r,clk;
-output q,qbar;
-reg q,qbar;
-always @(posedge clk)
+module flipflop (S,R,Q,Qbar,CLK);
+input S,R,CLK;
+output reg Q,Qbar;
+initial Q=0;
+initial Qbar=1;
+always @(posedge CLK)
 begin
-q<=s|(~r&q);
-qbar<=r|(~s&~q);
+Q=S|(Q&(~R));
+Qbar=R|(Qbar&(~S));
 end
 endmodule
 ```
 
 # JK flip flop:
 ```
-module exp_5b(j,k,clk,q,qbar);
+module jkflipflop(j,k,clk,q,qbar);
 input j,k,clk;
-output q,qbar;
-reg q,qbar;
+output reg q;
+output reg qbar;
+initial q=0;
+initial qbar=1;
 always @(posedge clk)
 begin
-q<=(j&~q)|(~k&q);
-qbar<=~q;
-end 
-endmodule
-```
-
-# T flip flop:
-```
-module exp_5c(clk,T,q,qbar);
-input clk,T;
-output q,qbar;
-reg q,qbar;
-always @(posedge clk)
-begin
-q<=(T&~q)|(~T&q);
-qbar<=~q;
+q=(j&(~q))|((~k)&q);
+qbar=((~j)&q)|(k &(~q));
 end 
 endmodule
 ```
 
 # D flip flop:
 ```
-module exp_5d(d,clk,q,qbar);
-input d,clk;
-output q,qbar;
-reg q,qbar;
-always @(posedge clk)
+module dflipflop(d,clk,q,qbar); 
+input d,clk; 
+output reg q; 
+output reg qbar; 
+initial q=0;
+initial qbar=1; 
+always @(posedge clk) 
 begin 
-q<=d;
-qbar<=~q;
+q=d; 
+qbar=~q; 
 end 
 endmodule
 ```
 
+# T flip flop:
+```
+module t(T,clk,q,qbar);
+input T,clk;
+output reg q;
+output reg qbar;
+initial q=0;
+initial qbar=1;
+always @ (posedge clk)
+begin
+q=(T&(~q))|((~T)&q);
+qbar=(~q);
+end
+endmodule
+```
+
 ### RTL LOGIC FOR FLIPFLOPS 
+- SR FLIPFLOP:
+ ![DE 1](https://github.com/sivaram-R/Experiment--05-Implementation-of-flipflops-using-verilog/assets/121165794/b5cefab0-7782-45c3-954b-38442a9b4318)
+- JK FLIPFLOP:
+ ![DE 2](https://github.com/sivaram-R/Experiment--05-Implementation-of-flipflops-using-verilog/assets/121165794/ded2cb28-ba4b-4627-9396-b8b47943df5a)
+- D FLIPFLOP:
+![DE 3](https://github.com/sivaram-R/Experiment--05-Implementation-of-flipflops-using-verilog/assets/121165794/5cdbf963-bbeb-4a88-9716-fd1505c54d4f)
+- T FLIPFLOP:
+ ![DE 4](https://github.com/sivaram-R/Experiment--05-Implementation-of-flipflops-using-verilog/assets/121165794/47bce47b-1a56-4b4f-afd7-b33ee8e62249)
 
+### TIMING DIGRAMS FOR FLIP FLOPS
+- SR FLIPFLOP:
+![DE 5](https://github.com/sivaram-R/Experiment--05-Implementation-of-flipflops-using-verilog/assets/121165794/9fdf078d-ccc2-4b8e-b626-4f5010579f8c)
+- JK FLIPFLOP:
+![DE 6](https://github.com/sivaram-R/Experiment--05-Implementation-of-flipflops-using-verilog/assets/121165794/cfcdb1a4-9ecf-4d7c-8129-82374cacde39)
+- D FLIPFLOP:
+![DE 7](https://github.com/sivaram-R/Experiment--05-Implementation-of-flipflops-using-verilog/assets/121165794/1095fa82-0cc4-4ff9-9b16-3cbdad9f5be7)
+- T FLIPFLOP:
+![DE 8](https://github.com/sivaram-R/Experiment--05-Implementation-of-flipflops-using-verilog/assets/121165794/79eb0a97-0dda-4af1-9df7-ed4f3a42cd54)
+### RESULTS
+Thus, the program for flipflops is implemented and its functional table is successfully verified in quartus using Verilog programming.
 
-
-
-
-
-
-
-
-### TIMING DIGRAMS FOR FLIP FLOPS 
-
-
-
-
-
-
-
-
-### RESULTS 
